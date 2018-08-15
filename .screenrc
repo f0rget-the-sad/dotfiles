@@ -1,0 +1,87 @@
+defshell -bash
+altscreen on
+term screen-256color
+# term xterm
+maptimeout 5    
+hardstatus off
+vbell off
+# the following two lines give a two-line status, with the current window highlighted
+hardstatus alwayslastline
+hardstatus string '%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]'
+
+
+# 256 colors
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+
+# huge scrollback buffer
+defscrollback 1000000
+
+# mouse tracking allows to switch region focus by clicking
+# but dont allow select the text тт о тт
+# mousetrack on
+# defmousetrack
+
+startup_message off
+
+# navigating regions with Ctrl-arrows
+bindkey "^[[1;5D" focus left
+bindkey "^[[1;5C" focus right
+bindkey "^[[1;5A" focus up
+bindkey "^[[1;5B" focus down
+
+# switch windows with F3 (prev) and F4 (next)
+bindkey "^[OR" prev
+bindkey "^[OS" next
+
+# default windows
+screen -t bash   1 bash
+screen -t bash   2 bash
+screen -t Python 3 python
+screen -t Scapee 4 scapy
+select 0
+bind c screen 1 # window numbering starts at 1 not 0
+bind 0 select 10
+
+# get rid of silly xoff stuff
+bind s split
+
+# layouts
+layout autosave on
+layout new one
+select 1
+layout new two
+select 1
+split
+resize -v +8
+focus down
+select 4
+focus up
+layout new three
+select 1
+split
+resize -v +7
+focus down
+select 3
+split -v
+resize -h +10
+focus right
+select 4
+focus up
+
+# F5 make same layout as above
+bindkey "^[[15~" eval "layout autosave on" "layout new one" "select 1" "layout new two" "select 1" "split" "resize -v +8" "focus down" "select 4" "focus up" "layout new three" "select 1" "split" "resize -v +7" "focus down" "select 3" "split -v" "resize -h +10" "focus right" "select 4" "focus up"
+
+# layout attach one
+# seect 1
+# layout select one
+
+# F2 puts Screen into resize mode. Resize regions using hjkl keys.
+bindkey "^[OQ" eval "command -c rsz" # enter resize mode
+
+# use hjkl keys to resize regions
+bind -c rsz h eval "resize -h -5" "command -c rsz"
+bind -c rsz j eval "resize -v -5" "command -c rsz"
+bind -c rsz k eval "resize -v +5" "command -c rsz"
+bind -c rsz l eval "resize -h +5" "command -c rsz"
