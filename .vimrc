@@ -9,9 +9,18 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" added nerdtree
 "The NERDTree is a file system explorer for the Vim editor
 Plugin 'scrooloose/nerdtree'
+
+" syntax checking plugin for Vim
+Plugin 'vim-syntastic/syntastic'
+
+" YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim.
+Plugin 'Valloric/YouCompleteMe'
+
+" vim-airline/vim-airline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -20,6 +29,8 @@ filetype plugin indent on    " required
 "filetype plugin on
 "
 " Brief help
+
+
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
@@ -43,7 +54,7 @@ colorscheme monokai
 " tab formatting 
 set ts=4 sw=4
 set smarttab
-set expandtab
+set noexpandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -99,7 +110,6 @@ nmap <leader>j :%!python -m json.tool<CR>
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 "Syntastic config
-execute pathogen#infect()
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -113,13 +123,13 @@ set list
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 set showbreak=↪
 
-:setlocal spell spelllang=en_us
+setlocal spell spelllang=en_us
 
 hi SpellBad cterm=underline ctermbg=NONE
 
-:set linespace=5
+set linespace=5
 
-:set rtp+=~/.fzf
+set rtp+=~/.fzf
 
 " This is the default extra key bindings
 noremap <F2> :FZF <CR>
