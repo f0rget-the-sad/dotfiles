@@ -6,21 +6,37 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-"The NERDTree is a file system explorer for the Vim editor
-Plugin 'scrooloose/nerdtree'
-
 " syntax checking plugin for Vim
 Plugin 'vim-syntastic/syntastic'
 
-" YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim.
+" YouCompleteMe is a fast,  as-you-type,  fuzzy-search code completion engine for Vim.
 Plugin 'Valloric/YouCompleteMe'
 
 " vim-airline/vim-airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The NERDTree is a file system explorer for the Vim editor
+Plugin 'scrooloose/nerdtree'
+
+" Git plugin
+Plugin 'tpope/vim-fugitive'
+
+" Simply use the provided mapping <C-W>m to toggle zoom in and out for the current window
+Plugin 'dhruvasagar/vim-zoom'
+
+" A VIM plugin to open urls in the default browser
+Plugin 'dhruvasagar/vim-open-url'
+
+" Tagbar is a Vim plugin that provides an easy way to browse the tags of the
+"current file and get an overview of its structure.
+Plugin 'majutsushi/tagbar'
+
+" Fast and Easy Find and Replace Across Multiple Files
+Plugin 'dkprice/vim-easygrep'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -29,8 +45,6 @@ filetype plugin indent on    " required
 "filetype plugin on
 "
 " Brief help
-
-
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
@@ -63,7 +77,7 @@ set shiftround
 set laststatus=2
 set autoindent
 
-" autoadd space after comma in insert mode
+" auto add space after comma in insert mode
 inoremap , ,<space>
 
 " vim tabs navigation
@@ -91,6 +105,9 @@ set nolazyredraw " don't redraw while executing macros
 " shortcut to save
 nmap <leader>] :w<cr>
 
+" shortcut for calling copyq
+nmap <F3> :w !copyq menu<CR> i
+
 " shortcut to quick compile
 nmap <F9> :w !python<cr>
 
@@ -107,16 +124,18 @@ hi Search ctermfg=235 ctermbg=178 cterm=NONE guifg=White guibg=#eaab00 gui=NONE
 " shortcut to indent json files
 nmap <leader>j :%!python -m json.tool<CR>
 
+" shortcut for Tagbar
+nmap <F8> :TagbarToggle<CR>
+
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 "Syntastic config
+execute pathogen#infect()
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_flake8_args = "--max-line-length=150"
-
-set guifont=Monospace\ 14
 
 " toggle invisible characters
 set list
@@ -189,9 +208,17 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 
+" Zeal Mapping
+nmap <leader>z <Plug>Zeavim
+vmap <leader>z <Plug>ZVVisSelection
+nmap gz <Plug>ZVOperator
+nmap <leader><leader>z <Plug>ZVKeyDocset
+
 "auto headers
 if has("autocmd")
     augroup templates_
         autocmd BufNewFile *.py 0r ~/headers/py_header.txt
+        autocmd BufNewFile *.c 0r ~/headers/c_header.txt
+        autocmd BufNewFile *.h 0r ~/headers/c_header.txt
     augroup END
 endif
