@@ -5,6 +5,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
+"
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
 " syntax checking plugin for Vim
 Plugin 'vim-syntastic/syntastic'
@@ -15,9 +18,6 @@ Plugin 'Valloric/YouCompleteMe'
 " vim-airline/vim-airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
 
 " The NERDTree is a file system explorer for the Vim editor
 Plugin 'scrooloose/nerdtree'
@@ -38,6 +38,9 @@ Plugin 'majutsushi/tagbar'
 " Fast and Easy Find and Replace Across Multiple Files
 Plugin 'dkprice/vim-easygrep'
 
+" Adds filetype glyphs (icons) to various vim plugins.
+Plugin 'ryanoasis/vim-devicons'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -52,6 +55,8 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+set encoding=utf8
 
 " set clipboard CLIPBOARD (^C, ^V in system)
 set clipboard=unnamedplus
@@ -180,6 +185,7 @@ endfunction
 nmap <silent> <leader>k :call ToggleNerdTree()<cr>
 " find the current file in nerdtree without needing to reload the drawer
 nmap <silent> <leader>y :NERDTreeFind<cr>
+let NERDTreeIgnore = ['\.pyc$']
 
 " air-line
  let g:airline_powerline_fonts = 1
