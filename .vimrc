@@ -9,6 +9,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" Insert or delete brackets, parens, quotes in pair.
+Plugin 'jiangmiao/auto-pairs'
+
 " syntax checking plugin for Vim
 Plugin 'vim-syntastic/syntastic'
 
@@ -135,7 +138,6 @@ nmap <F8> :TagbarToggle<CR>
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 "Syntastic config
-execute pathogen#infect()
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
