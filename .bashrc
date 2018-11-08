@@ -122,8 +122,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export RTE_SDK=~/git/dpdk-stable-18.02.1
-export RTE_TARGET=x86_64-native-linuxapp-gcc
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -135,9 +133,29 @@ function cd {
 function mkcd {
     command mkdir "$1" && cd "$1"
 }
+
 # change title of tab
 set-title(){
     ORIG=$PS1
     TITLE="\e]2;$@\a"
     PS1=${ORIG}${TITLE}
 }
+clean-tmp(){
+	command find . -type f -name "*.sw[op]" -exec mv -t /tmp {} +
+	command find . -type f -name "*.tmp" -exec mv -t /tmp {} +
+}
+
+function git-test-pull {
+	command git fetch origin pull/"$1"/head:pull"$1"
+}
+
+function tvi {
+	command gnome-terminal --geometry 90x60+2250+0 -x vi $@
+}
+
+# map F3 for copyq
+bind '"\eOR":"copyq menu\n"'
+
+export RTE_SDK=~/git/dpdk-stable-18.02.1
+export RTE_TARGET=x86_64-native-linuxapp-gcc
+export PACKETRON=~/git/packetron
