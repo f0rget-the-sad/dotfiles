@@ -44,6 +44,21 @@ Plugin 'dkprice/vim-easygrep'
 " Adds filetype glyphs (icons) to various vim plugins.
 Plugin 'ryanoasis/vim-devicons'
 
+"Surround.vim is all about surroundings: parentheses,  brackets,  quotes,
+"XML tags,  and more.
+Plugin 'tpope/vim-surround'
+
+"Lightweight Vim plugin to enhance the tabline including numbered tab page
+"labels; it's written entirely in Vim script.
+Plugin 'webdevel/tabulous'
+
+"Vim motion on speed!
+Plugin 'easymotion/vim-easymotion'
+
+"This plugin makes use of external formatting programs to achieve the most
+"decent results.
+Plugin 'Chiel92/vim-autoformat'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -73,7 +88,7 @@ set number " to show current line number instead of 0
 set mouse=a
 
 colorscheme monokai
-" tab formatting 
+" tab formatting
 set ts=4 sw=4
 set smarttab
 set noexpandtab
@@ -112,6 +127,11 @@ set nolazyredraw " don't redraw while executing macros
 
 " shortcut to save
 nmap <leader>] :w<cr>
+
+" shortcut to quote world
+
+nmap <leader>[ ciw'Ctrl+r"'
+
 
 " shortcut for calling copyq
 nmap <F3> :w !copyq menu<CR> i
@@ -160,9 +180,9 @@ set rtp+=~/.fzf
 " This is the default extra key bindings
 noremap <F2> :FZF <CR>
 let g:fzf_action = {
-    \ 'ctrl-t': 'tab split',
-    \ 'ctrl-x': 'split',
-    \ 'ctrl-v': 'vsplit'}
+			\ 'ctrl-t': 'tab split',
+			\ 'ctrl-x': 'split',
+			\ 'ctrl-v': 'vsplit'}
 
 " Default fzf layout
 " - down / up / left / right
@@ -177,11 +197,11 @@ hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE guifg=#ffffff guibg=
 "map <C-n> :NERDTreeToggle<CR>
 " Toggle NERDTree
 function! ToggleNerdTree()
-    if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
-        :NERDTreeFind
-    else
-        :NERDTreeToggle
-    endif
+	if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
+		:NERDTreeFind
+	else
+		:NERDTreeToggle
+	endif
 endfunction
 " toggle nerd tree
 nmap <silent> <leader>k :call ToggleNerdTree()<cr>
@@ -190,10 +210,10 @@ nmap <silent> <leader>y :NERDTreeFind<cr>
 let NERDTreeIgnore = ['\.pyc$']
 
 " air-line
- let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 
- if !exists('g:airline_symbols')
-     let g:airline_symbols = {}
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
 endif
 "
 " unicode symbols
@@ -222,11 +242,19 @@ vmap <leader>z <Plug>ZVVisSelection
 nmap gz <Plug>ZVOperator
 nmap <leader><leader>z <Plug>ZVKeyDocset
 
+" Easy motion mapping
+nmap <Space> <Plug>(easymotion-bd-w)
+
+" au BufWrite * :Autoformat
+noremap <F3> :Autoformat<CR>
+let g:formatdef_autopep8 = '"autopep8 - --max-line-length 100"'
+let g:formatters_python = ['autopep8']
+
 "auto headers
 if has("autocmd")
-    augroup templates_
-        autocmd BufNewFile *.py 0r ~/headers/py_header.txt
-        autocmd BufNewFile *.c 0r ~/headers/c_header.txt
-        autocmd BufNewFile *.h 0r ~/headers/c_header.txt
-    augroup END
+	augroup templates_
+		autocmd BufNewFile *.py 0r ~/headers/py_header.txt
+		autocmd BufNewFile *.c 0r ~/headers/c_header.txt
+		autocmd BufNewFile *.h 0r ~/headers/c_header.txt
+	augroup END
 endif
