@@ -137,7 +137,7 @@ nmap <leader>[ ciw'Ctrl+r"'
 nmap <F3> :w !copyq menu<CR> i
 
 " shortcut to quick compile
-nmap <F9> :w !python<cr>
+nmap <F9> :w !python<CR>
 
 " shortcut to insert debug break point
 map <leader>p oimport pdb; pdb.set_trace()<ESC>
@@ -145,9 +145,11 @@ map <leader>p oimport pdb; pdb.set_trace()<ESC>
 " Enable syntax highlighting
 syntax on
 
-"bind F5 to on/off hightlighted search
-:noremap <F5> :set hlsearch! hlsearch?<CR>
+"bind F6 to on/off hightlighted search
+nmap <F6> :set hlsearch! hlsearch?<CR>
 hi Search ctermfg=235 ctermbg=178 cterm=NONE guifg=White guibg=#eaab00 gui=NONE
+
+nmap <F5> :w !gcc % -o %< && ./%<<CR>
 
 " shortcut to indent json files
 nmap <leader>j :%!python -m json.tool<CR>
