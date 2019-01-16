@@ -15,16 +15,12 @@ Plugin 'jiangmiao/auto-pairs'
 " syntax checking plugin for Vim
 Plugin 'vim-syntastic/syntastic'
 
-" YouCompleteMe is a fast,  as-you-type,  fuzzy-search code completion engine for Vim.
-Plugin 'Valloric/YouCompleteMe'
-
 " vim-airline/vim-airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
 " The NERDTree is a file system explorer for the Vim editor
 Plugin 'scrooloose/nerdtree'
-
 " Git plugin
 Plugin 'tpope/vim-fugitive'
 
@@ -58,6 +54,9 @@ Plugin 'easymotion/vim-easymotion'
 "This plugin makes use of external formatting programs to achieve the most
 "decent results.
 Plugin 'Chiel92/vim-autoformat'
+
+" Completor is an asynchronous code completion framework for vim8.
+Plugin 'maralla/completor.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -132,7 +131,6 @@ nmap <leader>] :w<cr>
 
 nmap <leader>[ ciw'Ctrl+r"'
 
-
 " shortcut for calling copyq
 nmap <F3> :w !copyq menu<CR> i
 
@@ -158,6 +156,7 @@ nmap <leader>j :%!python -m json.tool<CR>
 nmap <F8> :TagbarToggle<CR>
 
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_confirm_extra_conf = 0
 
 "Syntastic config
 let g:syntastic_python_checkers=['flake8']
@@ -185,10 +184,10 @@ let g:fzf_action = {
 			\ 'ctrl-t': 'tab split',
 			\ 'ctrl-x': 'split',
 			\ 'ctrl-v': 'vsplit'}
-
 " Default fzf layout
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~40%'  }
+
 let g:airline_theme='deus'
 let g:airline_powerline_fonts = 1
 hi TabLine      ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
@@ -210,6 +209,8 @@ nmap <silent> <leader>k :call ToggleNerdTree()<cr>
 " find the current file in nerdtree without needing to reload the drawer
 nmap <silent> <leader>y :NERDTreeFind<cr>
 let NERDTreeIgnore = ['\.pyc$']
+"one tree for all tabs need add closing
+" autocmd BufWinEnter * NERDTreeMirror
 
 " air-line
 let g:airline_powerline_fonts = 1
@@ -249,14 +250,22 @@ nmap <Space> <Plug>(easymotion-bd-w)
 
 " au BufWrite * :Autoformat
 noremap <F3> :Autoformat<CR>
-let g:formatdef_autopep8 = '"autopep8 - --max-line-length 100"'
+let g:formatdef_autopep8 = '"autopep8 - --max-line-length 150"'
 let g:formatters_python = ['autopep8']
+
+" completor settings
+let g:completor_clang_binary = '/usr/bin/clang'
+let g:completor_python_binary = '/usr/bin/python'
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 "auto headers
 if has("autocmd")
 	augroup templates_
-		autocmd BufNewFile *.py 0r ~/headers/py_header.txt
-		autocmd BufNewFile *.c 0r ~/headers/c_header.txt
-		autocmd BufNewFile *.h 0r ~/headers/c_header.txt
+		autocmd BufNewFile *.py 0r ~/git/dotfiles/headers/py_header.txt
+		autocmd BufNewFile *.c 0r ~/git/dotfiles/headers/c_header.txt
+		autocmd BufNewFile *.h 0r ~/git/dotfiles/headers/c_header.txt
 	augroup END
 endif
