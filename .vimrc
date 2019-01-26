@@ -58,6 +58,9 @@ Plugin 'Chiel92/vim-autoformat'
 " Completor is an asynchronous code completion framework for vim8.
 Plugin 'maralla/completor.vim'
 
+" To use zeavim, you need of course to have Zeal installed. 
+Plugin 'KabbAmine/zeavim.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
