@@ -31,28 +31,43 @@ esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
+sudo apt-get update
+
 sudo apt-get --yes install\
+	apt-transport-https \
 	build-essential\
+	ca-certificates \
 	chromium-browser\
 	clang\
 	cmake\
+	curl \
 	fonts-powerline\
 	git\
+	gnupg-agent \
 	okular\
 	python-dev\
 	python-pip\
 	python-tk\
 	python3-dev\
+	software-properties-common
 	tmux\
 	vim-gtk\
 	vim\
 	virtualenv\
 	zeal\
 
+
 if [ $EDITIONAL -eq 1 ]
 then
+
+	GET_DOCKER=/tmp/get-docker.sh
+	curl -fsSL https://get.docker.com -o $GET_DOCKER &&\
+		sudo sh $GET_DOCKER &&\
+		sudo usermod -aG docker ${USER}
+	rm -f $GET_DOCKER
+
 	sudo apt-get --yes install\
-		skypeforlinux
+		skypeforlinux\
 
 	echo "install discord"
 	DISK_PATH=/tmp/discord.deb
@@ -60,6 +75,10 @@ then
 	sudo dpkg -i $DISK_PATH
 	sudo apt-get -yf install
 	rm -f $DISK_PATH
+
+	echo "Telegram installation..."
+	wget -O- https://telegram.org/dl/desktop/linux | sudo tar xJ -C /opt/
+	sudo ln -s /opt/Telegram/Telegram /usr/local/bin/telegram-desktop
 fi
 
 echo "Copy dotfiles"
