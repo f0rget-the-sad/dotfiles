@@ -61,6 +61,12 @@ Plugin 'maralla/completor.vim'
 " To use zeavim, you need of course to have Zeal installed. 
 Plugin 'KabbAmine/zeavim.vim'
 
+" Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
+Plugin 'ctrlpvim/ctrlp.vim'
+
+" Plugin highlighting word under cursor and all of its occurrences."
+Plugin 'dominikduda/vim_current_word'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -123,9 +129,9 @@ nmap <leader>0 10gt
 " Searching
 set ignorecase " case insensitive searching"
 set smartcase " case-sensitive if expresson contains a capital letVter
-set hlsearch " highlight search results
 set incsearch " set incremental search, like modern browsers
 set nolazyredraw " don't redraw while executing macros
+set nohlsearch " don't highlight search results
 
 " shortcut to save
 nmap <leader>] :w<cr>
@@ -146,8 +152,9 @@ map <leader>p oimport pdb; pdb.set_trace()<ESC>
 " Enable syntax highlighting
 syntax on
 
-"bind F6 to on/off hightlighted search
-nmap <F6> :set hlsearch! hlsearch?<CR>
+" bind F6 to on/off hightlighted search
+" nmap <F6> :set hlsearch! hlsearch?<CR>
+hi CurrentWordTwins ctermfg=235 ctermbg=178
 hi Search ctermfg=235 ctermbg=178 cterm=NONE guifg=White guibg=#eaab00 gui=NONE
 
 nmap <F5> :w !gcc % -o %< && ./%<<CR>
@@ -179,17 +186,9 @@ hi SpellBad cterm=underline ctermbg=NONE
 
 set linespace=5
 
-set rtp+=~/.fzf
-
-" This is the default extra key bindings
-noremap <F2> :FZF <CR>
-let g:fzf_action = {
-			\ 'ctrl-t': 'tab split',
-			\ 'ctrl-x': 'split',
-			\ 'ctrl-v': 'vsplit'}
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%'  }
+let g:ctrlp_map = '<F2>'
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set wildignore+=*/build/*,*.so,*.swp,*.pyc,*.o
 
 let g:airline_theme='deus'
 let g:airline_powerline_fonts = 1
