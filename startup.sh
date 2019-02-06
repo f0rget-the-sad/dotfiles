@@ -45,11 +45,13 @@ sudo apt-get --yes install\
 	git\
 	gnupg-agent \
 	okular\
+	ipython\
 	python-dev\
 	python-pip\
 	python-tk\
 	python3-dev\
-	software-properties-common
+	software-properties-common\
+	scapy\
 	tmux\
 	vim-gtk\
 	vim\
@@ -111,5 +113,5 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
 echo "FZF installing..."
- git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
