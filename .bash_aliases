@@ -1,4 +1,6 @@
 alias gti='git'
 alias gis='git status'
 alias gf='git diff'
+alias gitlast='git log --pretty=format: --name-only -n 1'
+alias vimlast='vim -p $(gitlast)'
 alias tmuxdev='tmux new -s vf \; split-window -v \; split-window -h \;'

@@ -67,6 +67,9 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " Plugin highlighting word under cursor and all of its occurrences."
 Plugin 'dominikduda/vim_current_word'
 
+" A collection of syntax definitions not yet shipped with stock vim.
+Plugin 'justinmk/vim-syntax-extra'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
