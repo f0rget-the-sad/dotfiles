@@ -171,9 +171,25 @@ function tvi {
 	command gnome-terminal --geometry 90x60+2250+0 -- vi $@
 }
 
+function countdown(){
+   date1=$((`date +%s` + $1));
+   while [ "$date1" -ge `date +%s` ]; do
+     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+     sleep 0.1
+   done
+}
+
+function stopwatch(){
+  date1=`date +%s`;
+   while true; do
+    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";
+    sleep 0.1
+   done
+}
 # map F3 for copyq
 bind '"\eOR":"copyq menu\n"'
 
-export RTE_SDK=~/git/dpdk-stable-18.02.1
+export RTE_SDK=~/workspace/dpdk-stable-18.02.2
 export RTE_TARGET=x86_64-native-linuxapp-gcc
-export PACKETRON=~/git/packetron
+export PACKETRON=~/workspace/packetron
+export CSCOPE_DB=~/workspace/cscope/cscope.out

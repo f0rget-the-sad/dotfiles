@@ -70,6 +70,8 @@ Plugin 'dominikduda/vim_current_word'
 " A collection of syntax definitions not yet shipped with stock vim.
 Plugin 'justinmk/vim-syntax-extra'
 
+Plugin 'chazy/cscope_maps'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
