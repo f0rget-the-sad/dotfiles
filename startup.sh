@@ -41,11 +41,13 @@ sudo apt-get --yes install\
 	clang\
 	cmake\
 	curl \
+	flake8\
 	fonts-powerline\
 	git\
 	gnupg-agent \
 	okular\
 	ipython\
+	python-autopep8\
 	python-dev\
 	python-pip\
 	python-tk\
