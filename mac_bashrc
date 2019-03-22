@@ -192,4 +192,3 @@ bind '"\eOR":"copyq menu\n"'
 export RTE_SDK=~/workspace/dpdk-stable-18.02.2
 export RTE_TARGET=x86_64-native-linuxapp-gcc
 export PACKETRON=~/workspace/packetron
-export CSCOPE_DB=~/workspace/cscope/cscope.out
