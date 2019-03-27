@@ -13,7 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'jiangmiao/auto-pairs'
 
 " syntax checking plugin for Vim
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
 
 " vim-airline/vim-airline
 Plugin 'vim-airline/vim-airline'
@@ -71,6 +71,9 @@ Plugin 'dominikduda/vim_current_word'
 Plugin 'justinmk/vim-syntax-extra'
 
 Plugin 'chazy/cscope_maps'
+
+" help you read complex code by showing diff level of parentheses in diff color !!
+Plugin 'luochen1990/rainbow'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -192,6 +195,7 @@ hi SpellBad cterm=underline ctermbg=NONE
 set linespace=5
 
 let g:ctrlp_map = '<F2>'
+let g:ctrlp_match_window_bottom = 0
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/build/*,*.so,*.swp,*.pyc,*.o
 
@@ -276,3 +280,5 @@ if has("autocmd")
 		autocmd BufNewFile *.h 0r ~/git/dotfiles/headers/c_header.txt
 	augroup END
 endif
+
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
