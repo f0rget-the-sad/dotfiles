@@ -31,37 +31,15 @@ esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
+clang: error: no such file or directory: 'cmake'
+echo "Installing packeges..."
 sudo apt-get update
 
-sudo apt-get --yes install\
-	apt-transport-https \
-	build-essential\
-	ca-certificates \
-	chromium-browser\
-	clang\
-	cmake\
-	curl \
-	flake8\
-	fonts-powerline\
-	git\
-	gnupg-agent \
-	okular\
-	ipython\
-	python-autopep8\
-	python-dev\
-	python-pip\
-	python-tk\
-	python3-dev\
-	software-properties-common\
-	scapy\
-	tmux\
-	vim-gtk\
-	vim\
-	virtualenv\
-	zeal\
+cat packages.txt | xargs sudo apt-get --yes install
 
+echo "Finish Installing packeges..."
 
-if [ $EDITIONAL -eq 1 ]
+if [[ $EDITIONAL -eq 1 ]]
 then
 
 	GET_DOCKER=/tmp/get-docker.sh
