@@ -12,15 +12,12 @@ Plugin 'VundleVim/Vundle.vim'
 " Insert or delete brackets, parens, quotes in pair.
 Plugin 'jiangmiao/auto-pairs'
 
-" syntax checking plugin for Vim
-" Plugin 'vim-syntastic/syntastic'
-
 " vim-airline/vim-airline
 Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 
 " The NERDTree is a file system explorer for the Vim editor
 Plugin 'scrooloose/nerdtree'
+
 " Git plugin
 Plugin 'tpope/vim-fugitive'
 
@@ -74,6 +71,8 @@ Plugin 'chazy/cscope_maps'
 
 " help you read complex code by showing diff level of parentheses in diff color !!
 Plugin 'luochen1990/rainbow'
+
+Plugin 'crusoexia/vim-monokai'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -160,10 +159,7 @@ map <leader>p oimport pdb; pdb.set_trace()<ESC>
 " Enable syntax highlighting
 syntax on
 
-" bind F6 to on/off hightlighted search
-" nmap <F6> :set hlsearch! hlsearch?<CR>
-hi CurrentWordTwins ctermfg=235 ctermbg=178
-hi Search ctermfg=235 ctermbg=178 cterm=NONE guifg=White guibg=#eaab00 gui=NONE
+hi CurrentWordTwins ctermfg=235 ctermbg=186
 
 nmap <F5> :w !gcc % -o %< && ./%<<CR>
 
@@ -173,16 +169,6 @@ nmap <leader>j :%!python -m json.tool<CR>
 " shortcut for Tagbar
 nmap <F8> :TagbarToggle<CR>
 
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_confirm_extra_conf = 0
-
-"Syntastic config
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_flake8_args = "--max-line-length=150"
-
 " toggle invisible characters
 set list
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
@@ -190,17 +176,16 @@ set showbreak=↪
 
 setlocal spell spelllang=en_us
 
-hi SpellBad cterm=underline ctermbg=NONE
 
 set linespace=5
+
+set directory^=$HOME/.vim/swap//
 
 let g:ctrlp_map = '<F2>'
 let g:ctrlp_match_window_bottom = 0
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/build/*,*.so,*.swp,*.pyc,*.o
 
-let g:airline_theme='deus'
-let g:airline_powerline_fonts = 1
 hi TabLine      ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineFill  ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE guifg=#ffffff guibg=#337dff
@@ -280,5 +265,5 @@ if has("autocmd")
 		autocmd BufNewFile *.h 0r ~/git/dotfiles/headers/c_header.txt
 	augroup END
 endif
-
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+let g:airline_section_a = airline#section#create(['mode'])
