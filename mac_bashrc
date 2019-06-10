@@ -186,6 +186,13 @@ function stopwatch(){
     sleep 0.1
    done
 }
+
+function man() {
+  /usr/bin/man $* | \
+    col -b | \
+    vim -R -c 'set ft=man nomod nolist' -
+}
+
 # map F3 for copyq
 bind '"\eOR":"copyq menu\n"'
 
