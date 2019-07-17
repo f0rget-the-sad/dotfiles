@@ -52,6 +52,9 @@ bind-key -r k resize-pane -U 5
 bind-key -r h resize-pane -L 5
 bind-key -r l resize-pane -R 5
 
+# togle synchronize-panes
+bind -n M-x setw synchronize-panes
+
 # divider color
 set -g pane-border-fg default
 set -g pane-active-border-fg blue
