@@ -74,6 +74,8 @@ Plugin 'luochen1990/rainbow'
 
 Plugin 'crusoexia/vim-monokai'
 
+Plugin 'Yggdroot/indentLine'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -171,7 +173,8 @@ nmap <F8> :TagbarToggle<CR>
 
 " toggle invisible characters
 set list
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set listchars=tab:\¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+hi SpecialKey ctermfg=239
 set showbreak=↪
 
 setlocal spell spelllang=en_us
@@ -228,9 +231,9 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 "
 "" airline symbols
-let g:airline_left_sep = ''
+let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
+let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
