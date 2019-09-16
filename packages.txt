@@ -3,6 +3,7 @@ build-essential
 ca-certificates
 clang
 cmake
+cscope
 curl
 flake8
 fonts-powerline

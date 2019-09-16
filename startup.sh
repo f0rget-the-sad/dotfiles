@@ -87,6 +87,8 @@ fc-cache -f -v
 echo "Git globals"
 git config --global user.email "$GMAIL"
 git config --global user.name "$NAME"
+ln -sf $DOTFILES/gitignore_global ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
 
 echo "Vundle installing..."
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim

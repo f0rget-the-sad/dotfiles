@@ -193,8 +193,12 @@ function man() {
     vim -R -c 'set ft=man nomod nolist' -
 }
 
-# map F3 for copyq
-bind '"\eOR":"copyq menu\n"'
+function build_cscope_db_func() {
+	echo "Search for files in dirs: $(pwd) $@"
+	find . $@ -regex ".*\.\(h\|c\|cc|\cpp\)" ! -type l> cscope.files
+	cscope -Rbkq
+}
+alias csbuild=build_cscope_db_func
 
 export RTE_SDK=~/workspace/dpdk-stable-18.02.2
 export RTE_TARGET=x86_64-native-linuxapp-gcc
