@@ -75,6 +75,9 @@ Plugin 'luochen1990/rainbow'
 Plugin 'crusoexia/vim-monokai'
 
 Plugin 'Yggdroot/indentLine'
+if &filetype !=# 'py'
+	let g:indentLine_enabled = 0
+endif
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -161,7 +164,8 @@ map <leader>p oimport pdb; pdb.set_trace()<ESC>
 " Enable syntax highlighting
 syntax on
 
-hi CurrentWordTwins ctermfg=235 ctermbg=186
+hi CurrentWordTwins ctermbg=232
+hi CurrentWord ctermbg=232
 
 nmap <F5> :w !gcc % -o %< && ./%<<CR>
 
