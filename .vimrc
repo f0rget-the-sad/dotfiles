@@ -108,7 +108,9 @@ set number " to show current line number instead of 0
 set mouse=a
 
 colorscheme monokai
+
 " tab formatting
+autocmd FileType c,cpp,h set ts=8 sw=8 softtabstop=8
 set ts=4 sw=4
 set smarttab
 set noexpandtab
