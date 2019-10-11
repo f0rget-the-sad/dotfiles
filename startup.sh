@@ -97,3 +97,6 @@ vim +PluginInstall +qall
 echo "FZF installing..."
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
+
+echo "LS_COLORS installing..."
+wget https://raw.github.com/trapd00r/LS_COLORS/master/LS_COLORS -O ~/.dircolors

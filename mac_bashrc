@@ -203,3 +203,4 @@ alias csbuild=build_cscope_db_func
 export RTE_SDK=~/workspace/dpdk-stable-18.02.2
 export RTE_TARGET=x86_64-native-linuxapp-gcc
 export PACKETRON=~/workspace/packetron
+eval $(dircolors -b $HOME/.dircolors)
