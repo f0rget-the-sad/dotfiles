@@ -195,7 +195,7 @@ function man() {
 
 function build_cscope_db_func() {
 	echo "Search for files in dirs: $(pwd) $@"
-	find . $@ -regex ".*\.\(h\|c\|cc|\cpp\)" ! -type l> cscope.files
+	find . $@ -regex ".*\.\(h\|c\|cc\|cpp\)" ! -type l> cscope.files
 	cscope -Rbkq
 }
 alias csbuild=build_cscope_db_func
