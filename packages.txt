@@ -10,6 +10,7 @@ fonts-powerline
 git
 gnupg-agent
 okular
+okular-extra-backends
 ipython
 python-autopep8
 python-dev
