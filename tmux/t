@@ -1,0 +1,19 @@
+#!/bin/bash
+
+sn=xyz
+tmux has-session -t "$sn" 2>/dev/null
+
+if [ "$?" -ne 1 ] ; then
+	tmux -2 attach-session -t "$sn"
+	exit 0
+fi
+
+cd ~/workspace
+tmux new-session -A -s "$sn" -d
+for i in {2..6}; do
+    tmux new-window -t "$sn:$i"
+done
+
+# Select window #1 and attach to the session
+tmux select-window -t "$sn:1"
+tmux -2 attach-session -t "$sn"
