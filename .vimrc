@@ -72,8 +72,6 @@ Plugin 'chazy/cscope_maps'
 " help you read complex code by showing diff level of parentheses in diff color !!
 Plugin 'luochen1990/rainbow'
 
-Plugin 'crusoexia/vim-monokai'
-
 Plugin 'Yggdroot/indentLine'
 if &filetype !=# 'py'
 	let g:indentLine_enabled = 0
@@ -107,9 +105,8 @@ set number " to show current line number instead of 0
 
 set mouse=a
 
-colorscheme monokai
+colorscheme peachpuff
 
-" tab formatting
 autocmd FileType c,cpp,h set ts=8 sw=8 softtabstop=8
 set ts=4 sw=4
 set smarttab
@@ -166,8 +163,8 @@ map <leader>p oimport pdb; pdb.set_trace()<ESC>
 " Enable syntax highlighting
 syntax on
 
-hi CurrentWordTwins ctermbg=232
-hi CurrentWord ctermbg=232
+hi CurrentWordTwins ctermbg=236
+hi CurrentWord ctermbg=236
 
 nmap <F5> :w !gcc % -o %< && ./%<<CR>
 
@@ -184,6 +181,8 @@ hi SpecialKey ctermfg=239
 set showbreak=↪
 
 setlocal spell spelllang=en_us
+hi clear SpellBad
+hi SpellBad cterm=underline
 
 
 set linespace=5
