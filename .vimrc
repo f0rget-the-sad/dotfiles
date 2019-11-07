@@ -275,3 +275,6 @@ if has("autocmd")
 endif
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:airline_section_a = airline#section#create(['mode'])
+
+" Force saving files that require root permission 
+cnoremap w!! w !sudo tee > /dev/null %
