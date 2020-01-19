@@ -40,6 +40,8 @@ Plugin 'ryanoasis/vim-devicons'
 "Surround.vim is all about surroundings: parentheses,  brackets,  quotes,
 "XML tags,  and more.
 Plugin 'tpope/vim-surround'
+autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"
+autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
 
 "Lightweight Vim plugin to enhance the tabline including numbered tab page
 "labels; it's written entirely in Vim script.
@@ -76,6 +78,10 @@ Plugin 'Yggdroot/indentLine'
 if &filetype !=# 'py'
 	let g:indentLine_enabled = 0
 endif
+
+
+Plugin 'iamcco/markdown-preview.nvim'
+nmap <leader>m <Plug>MarkdownPreviewToggle
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
