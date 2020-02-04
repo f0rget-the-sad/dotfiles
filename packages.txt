@@ -2,6 +2,7 @@ apt-transport-https
 build-essential
 ca-certificates
 clang
+clipit
 cmake
 cscope
 curl

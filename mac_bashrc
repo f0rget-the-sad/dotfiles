@@ -200,6 +200,15 @@ function build_cscope_db_func() {
 }
 alias csbuild=build_cscope_db_func
 
+function pretty_csv {
+    column -t -s, -n "$@" | less -F -S -X -K
+}
+
+# Grep ignoring submodules
+function rgnosm {
+	rg $@ `git config --file .gitmodules --get-regexp path | awk '{ print $2 }' | xargs -I {} echo -g \'\!{}\'|xargs`
+}
+
 export RTE_SDK=~/workspace/dpdk-stable-18.02.2
 export RTE_TARGET=x86_64-native-linuxapp-gcc
 export PACKETRON=~/workspace/packetron

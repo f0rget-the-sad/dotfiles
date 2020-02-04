@@ -15,5 +15,11 @@ for i in {2..6}; do
 done
 
 # Select window #1 and attach to the session
-tmux select-window -t "$sn:1"
+tmux select-window -t "$sn:1" 
+# tmux send-keys -t "$sn:1.0" 'echo "wake up, neo..."' Enter
+# sleep 1
+
+tmux send-keys -t "$sn" 'stty -echo' Enter
+tmux send-keys -t "$sn" 'clear' Enter
+tmux send-keys -t "$sn" 'echo -e "\033[0;32mwake up, neo...\033[0m";stty echo' Enter
 tmux -2 attach-session -t "$sn"

@@ -1,0 +1,10 @@
+[Unit]
+Description=Glava
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/glava --desktop
+
+[Install]
+WantedBy=default.target
