@@ -79,7 +79,9 @@ Plugin 'Yggdroot/indentLine'
 "let g:indentLine_setColors = 0
 let g:indentLine_color_term = 239
 
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+"TODO: switch from VundleVim
+":call coc#util#install()
+Plugin 'neoclide/coc.nvim'
 
 
 Plugin 'iamcco/markdown-preview.nvim'

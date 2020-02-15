@@ -1,3 +1,4 @@
+alacritty
 apt-transport-https
 build-essential
 ca-certificates
@@ -10,18 +11,19 @@ flake8
 fonts-powerline
 git
 gnupg-agent
+ipython
+nmp
 okular
 okular-extra-backends
-ipython
 python-autopep8
 python-dev
 python-pip
 python-tk
 python3-dev
-software-properties-common
 scapy
+software-properties-common
 tmux
-vim-gtk
 vim
+vim-gtk
 virtualenv
 zeal

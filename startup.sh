@@ -31,7 +31,9 @@ esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-clang: error: no such file or directory: 'cmake'
+echo "Updatig source.list"
+sudo add-apt-repository ppa:mmstick76/alacritty
+
 echo "Installing packeges..."
 sudo apt-get update
 
