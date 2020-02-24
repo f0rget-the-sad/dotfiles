@@ -12,7 +12,7 @@ fonts-powerline
 git
 gnupg-agent
 ipython
-nmp
+npm
 okular
 okular-extra-backends
 python-autopep8

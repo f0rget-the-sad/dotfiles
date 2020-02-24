@@ -73,6 +73,7 @@ ln -s $DOTFILES/.vimrc ~/
 
 mv ~/.bashrc ~/.bashrc_bkp
 ln -s $DOTFILES/.bashrc ~/
+ln -sf $DOTFILES/.bash_aliases ~/
 source ~/.basrc
 
 mkdir -p ~/.vim/colors
@@ -80,7 +81,7 @@ ln -s $DOTFILES/monokai.vim ~/.vim/colors/
 
 echo "Tmux setup"
 git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
-ln -s $DOTFILES/.tmux.conf ~/
+ln -s $DOTFILES/tmux/.tmux.conf ~/
 
 mkdir -p ~/.fonts
 ln -s $DOTFILES/Ubuntu\ Mono\ Nerd\ Font\ Complete\ Mono.ttf ~/.fonts/
