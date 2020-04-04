@@ -1,106 +1,84 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-"
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+if ! filereadable(expand('~/.vim/autoload/plug.vim'))
+	echo "Downloading junegunn/vim-plug to manage plugins..."
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall
+endif
 
+call plug#begin('~/.vim/plugged')
 " Insert or delete brackets, parens, quotes in pair.
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 
 " vim-airline/vim-airline
-Plugin 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 
 " The NERDTree is a file system explorer for the Vim editor
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 " Git plugin
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Simply use the provided mapping <C-W>m to toggle zoom in and out for the current window
-Plugin 'dhruvasagar/vim-zoom'
+Plug 'dhruvasagar/vim-zoom'
 
 " A VIM plugin to open urls in the default browser
-Plugin 'dhruvasagar/vim-open-url'
+Plug 'dhruvasagar/vim-open-url'
 
 " Tagbar is a Vim plugin that provides an easy way to browse the tags of the
 "current file and get an overview of its structure.
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 " Fast and Easy Find and Replace Across Multiple Files
-Plugin 'dkprice/vim-easygrep'
+Plug 'dkprice/vim-easygrep'
 
 " Adds filetype glyphs (icons) to various vim plugins.
-Plugin 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 
 "Surround.vim is all about surroundings: parentheses,  brackets,  quotes,
 "XML tags,  and more.
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"
 autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
 
 "Lightweight Vim plugin to enhance the tabline including numbered tab page
 "labels; it's written entirely in Vim script.
-Plugin 'webdevel/tabulous'
+Plug 'webdevel/tabulous'
 
 "Vim motion on speed!
-Plugin 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 
 "This plugin makes use of external formatting programs to achieve the most
 "decent results.
-Plugin 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 
 " To use zeavim, you need of course to have Zeal installed. 
-Plugin 'KabbAmine/zeavim.vim'
+Plug 'KabbAmine/zeavim.vim'
 
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
-" Plugin highlighting word under cursor and all of its occurrences."
-Plugin 'dominikduda/vim_current_word'
+" Plug highlighting word under cursor and all of its occurrences."
+Plug 'dominikduda/vim_current_word'
 
 " A collection of syntax definitions not yet shipped with stock vim.
-Plugin 'justinmk/vim-syntax-extra'
+Plug 'justinmk/vim-syntax-extra'
 
-Plugin 'chazy/cscope_maps'
+Plug 'chazy/cscope_maps'
 
 " help you read complex code by showing diff level of parentheses in diff color !!
-Plugin 'luochen1990/rainbow'
+Plug 'luochen1990/rainbow'
 
-Plugin 'Yggdroot/indentLine'
-"autocmd BufNewFile,BufRead *.py
-" if &filetype !=# 'py'
-" 	let g:indentLine_enabled = 0
-" endif
-"let g:indentLine_setColors = 0
+Plug 'Yggdroot/indentLine', {'for': 'python'}
 let g:indentLine_color_term = 239
 
-"TODO: switch from VundleVim
-":call coc#util#install()
-Plugin 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'honza/vim-snippets'
 
-Plugin 'iamcco/markdown-preview.nvim'
+Plug 'iamcco/markdown-preview.nvim'
 nmap <leader>m <Plug>MarkdownPreviewToggle
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" Initialize plugin system
+call plug#end()
 
 set encoding=utf8
 
