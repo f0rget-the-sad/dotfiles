@@ -6,7 +6,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 " Insert or delete brackets, parens, quotes in pair.
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 
 " vim-airline/vim-airline
 Plug 'vim-airline/vim-airline'
@@ -106,6 +106,8 @@ set shiftround
 
 set laststatus=2
 set autoindent
+set smartindent
+set breakindent
 
 " auto add space after comma in insert mode
 inoremap , ,<space>
@@ -153,6 +155,9 @@ syntax on
 
 hi CurrentWordTwins ctermbg=236
 hi CurrentWord ctermbg=236
+
+set cursorline
+hi CursorLine cterm=NONE ctermbg=236
 
 nmap <F5> :w !gcc % -o %< && ./%<<CR>
 
@@ -374,4 +379,17 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" :CocInstall coc-snippets
+" Use <C-l> for trigger snippet expand.
+"imap <C-l> <Plug>(coc-snippets-expand)
+"
+"" Use <C-j> for select text for visual placeholder of snippet.
+"vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'

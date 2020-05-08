@@ -1,3 +1,9 @@
+# Window Customization
+window:
+  padding:
+    x: 5
+    y: 5
+  decorations: none
 font:
     normal:
         family: Ubuntu Mono
