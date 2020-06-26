@@ -5,14 +5,56 @@ if ! filereadable(expand('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" Insert or delete brackets, parens, quotes in pair.
-"Plug 'jiangmiao/auto-pairs'
 
 " vim-airline/vim-airline
 Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = 'Ξ'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+
+function! AirlineInit()
+	let g:airline_section_a = airline#section#create(['mode'])
+    endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 
 " The NERDTree is a file system explorer for the Vim editor
 Plug 'scrooloose/nerdtree'
+
+" Toggle NERDTree
+function! ToggleNerdTree()
+	if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
+		:NERDTreeFind
+	else
+		:NERDTreeToggle
+	endif
+endfunction
+" toggle nerd tree
+nmap <silent> <leader>k :call ToggleNerdTree()<cr>
+" find the current file in nerdtree without needing to reload the drawer
+nmap <silent> <leader>y :NERDTreeFind<cr>
+let NERDTreeIgnore = ['\.pyc$']
 
 " Git plugin
 Plug 'tpope/vim-fugitive'
@@ -20,24 +62,13 @@ Plug 'tpope/vim-fugitive'
 " Simply use the provided mapping <C-W>m to toggle zoom in and out for the current window
 Plug 'dhruvasagar/vim-zoom'
 
-" A VIM plugin to open urls in the default browser
-Plug 'dhruvasagar/vim-open-url'
-
 " Tagbar is a Vim plugin that provides an easy way to browse the tags of the
 "current file and get an overview of its structure.
 Plug 'majutsushi/tagbar'
-
-" Fast and Easy Find and Replace Across Multiple Files
-Plug 'dkprice/vim-easygrep'
+nmap <F8> :TagbarToggle<CR>
 
 " Adds filetype glyphs (icons) to various vim plugins.
 Plug 'ryanoasis/vim-devicons'
-
-"Surround.vim is all about surroundings: parentheses,  brackets,  quotes,
-"XML tags,  and more.
-Plug 'tpope/vim-surround'
-autocmd FileType markdown,octopress let b:surround_{char2nr('i')} = "*\r*"
-autocmd FileType markdown,octopress let b:surround_{char2nr('b')} = "**\r**"
 
 "Lightweight Vim plugin to enhance the tabline including numbered tab page
 "labels; it's written entirely in Vim script.
@@ -45,19 +76,24 @@ Plug 'webdevel/tabulous'
 
 "Vim motion on speed!
 Plug 'easymotion/vim-easymotion'
-
-"This plugin makes use of external formatting programs to achieve the most
-"decent results.
-Plug 'Chiel92/vim-autoformat'
-
-" To use zeavim, you need of course to have Zeal installed.
-Plug 'KabbAmine/zeavim.vim'
+" Easy motion mapping
+nmap <Space> <Plug>(easymotion-bd-w)
 
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_map = '<F2>'
+let g:ctrlp_match_window_bottom = 0
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+"set wildignore+=*/build/*
+set wildignore+=*.so
+set wildignore+=*.swp
+set wildignore+=*.pyc
+set wildignore+=*.o
 
 " Plug highlighting word under cursor and all of its occurrences."
 Plug 'dominikduda/vim_current_word'
+hi CurrentWordTwins ctermbg=236
+hi CurrentWord ctermbg=236
 
 " A collection of syntax definitions not yet shipped with stock vim.
 Plug 'justinmk/vim-syntax-extra'
@@ -66,20 +102,16 @@ Plug 'chazy/cscope_maps'
 
 " help you read complex code by showing diff level of parentheses in diff color !!
 Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
-Plug 'Yggdroot/indentLine', {'for': 'python'}
-let g:indentLine_color_term = 239
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'honza/vim-snippets'
-
-Plug 'iamcco/markdown-preview.nvim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 nmap <leader>m <Plug>MarkdownPreviewToggle
 
 " Initialize plugin system
 call plug#end()
 
+
+" Pure Vim settings
 set encoding=utf8
 
 " set clipboard CLIPBOARD (^C, ^V in system)
@@ -95,7 +127,6 @@ set mouse=a
 
 colorscheme peachpuff
 
-autocmd FileType c,cpp,h set ts=8 sw=8 softtabstop=8
 set ts=4 sw=4
 set smarttab
 set noexpandtab
@@ -108,9 +139,6 @@ set laststatus=2
 set autoindent
 set smartindent
 set breakindent
-
-" auto add space after comma in insert mode
-inoremap , ,<space>
 
 " vim tabs navigation
 noremap tn :tabn<CR>
@@ -137,35 +165,17 @@ set nohlsearch " don't highlight search results
 " shortcut to save
 nmap <leader>] :w<cr>
 
-" shortcut to quote world
-
-nmap <leader>[ ciw'Ctrl+r"'
-
-" shortcut for calling copyq
-nmap <F3> :w !copyq menu<CR> i
-
-" shortcut to quick compile
-nmap <F9> :w !python<CR>
-
 " shortcut to insert debug break point
 map <leader>p oimport pdb; pdb.set_trace()<ESC>
 
 " Enable syntax highlighting
 syntax on
 
-hi CurrentWordTwins ctermbg=236
-hi CurrentWord ctermbg=236
-
 set cursorline
 hi CursorLine cterm=NONE ctermbg=236
 
-nmap <F5> :w !gcc % -o %< && ./%<<CR>
-
 " shortcut to indent json files
 nmap <leader>j :%!python -m json.tool<CR>
-
-" shortcut for Tagbar
-nmap <F8> :TagbarToggle<CR>
 
 " toggle invisible characters
 set list
@@ -177,134 +187,16 @@ setlocal spell spelllang=en_us
 hi clear SpellBad
 hi SpellBad cterm=underline
 
-
 set linespace=5
 
 set directory^=$HOME/.vim/swap//
-
-let g:ctrlp_map = '<F2>'
-let g:ctrlp_match_window_bottom = 0
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-"set wildignore+=*/build/*
-set wildignore+=*.so
-set wildignore+=*.swp
-set wildignore+=*.pyc
-set wildignore+=*.o
 
 hi TabLine      ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineFill  ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE guifg=#ffffff guibg=#337dff
 
-"NERDTree
-"map <C-n> :NERDTreeToggle<CR>
-" Toggle NERDTree
-function! ToggleNerdTree()
-	if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
-		:NERDTreeFind
-	else
-		:NERDTreeToggle
-	endif
-endfunction
-" toggle nerd tree
-nmap <silent> <leader>k :call ToggleNerdTree()<cr>
-" find the current file in nerdtree without needing to reload the drawer
-nmap <silent> <leader>y :NERDTreeFind<cr>
-let NERDTreeIgnore = ['\.pyc$']
-"one tree for all tabs need add closing
-" autocmd BufWinEnter * NERDTreeMirror
-
-" air-line
-let g:airline_powerline_fonts = 1
-
-if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
-endif
-"
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = 'Ξ'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-"
-"" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-
-" Zeal Mapping
-nmap <leader>z <Plug>Zeavim
-vmap <leader>z <Plug>ZVVisSelection
-nmap gz <Plug>ZVOperator
-nmap <leader><leader>z <Plug>ZVKeyDocset
-
-" Easy motion mapping
-nmap <Space> <Plug>(easymotion-bd-w)
-
-" au BufWrite * :Autoformat
-noremap <F3> :Autoformat<CR>
-let g:formatdef_autopep8 = '"autopep8 - --max-line-length 150"'
-let g:formatters_python = ['autopep8']
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-
-"auto headers
-if has("autocmd")
-	augroup templates_
-		autocmd BufNewFile *.py 0r ~/git/dotfiles/headers/py_header.txt
-		autocmd BufNewFile *.c 0r ~/git/dotfiles/headers/c_header.txt
-		autocmd BufNewFile *.h 0r ~/git/dotfiles/headers/c_header.txt
-	augroup END
-endif
-let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-let g:airline_section_a = airline#section#create(['mode'])
-
 " Force saving files that require root permission
 cnoremap w!! w !sudo tee > /dev/null %
-
-
-" ---- COC
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-"set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-"set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
-	\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 if executable('rg')
 	" Use rg over grep
