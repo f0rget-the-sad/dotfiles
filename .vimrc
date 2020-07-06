@@ -89,11 +89,10 @@ set wildignore+=*.so
 set wildignore+=*.swp
 set wildignore+=*.pyc
 set wildignore+=*.o
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " Plug highlighting word under cursor and all of its occurrences."
 Plug 'dominikduda/vim_current_word'
-hi CurrentWordTwins ctermbg=236
-hi CurrentWord ctermbg=236
 
 " A collection of syntax definitions not yet shipped with stock vim.
 Plug 'justinmk/vim-syntax-extra'
@@ -107,9 +106,14 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 nmap <leader>m <Plug>MarkdownPreviewToggle
 
+Plug 'machakann/vim-highlightedyank'
+
+" === Rust ===
+" Vim syntax for TOML.
+Plug 'cespare/vim-toml'
+
 " Initialize plugin system
 call plug#end()
-
 
 " Pure Vim settings
 set encoding=utf8
@@ -117,7 +121,7 @@ set encoding=utf8
 " set clipboard CLIPBOARD (^C, ^V in system)
 set clipboard=unnamedplus
 " show line numbers
-"
+
 set relativenumber " show line numbers
 set number " to show current line number instead of 0
 "set wrap " turn on line wrapping
@@ -127,6 +131,7 @@ set mouse=a
 
 colorscheme peachpuff
 
+autocmd FileType c,cpp,h set ts=8 sw=8 softtabstop=8
 set ts=4 sw=4
 set smarttab
 set noexpandtab
@@ -171,8 +176,6 @@ map <leader>p oimport pdb; pdb.set_trace()<ESC>
 " Enable syntax highlighting
 syntax on
 
-set cursorline
-hi CursorLine cterm=NONE ctermbg=236
 
 " shortcut to indent json files
 nmap <leader>j :%!python -m json.tool<CR>
@@ -191,6 +194,12 @@ set linespace=5
 
 set directory^=$HOME/.vim/swap//
 
+set cursorline
+hi CursorLine cterm=NONE ctermbg=236
+
+hi CurrentWordTwins ctermbg=236
+hi CurrentWord ctermbg=236
+
 hi TabLine      ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineFill  ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE guifg=#ffffff guibg=#337dff
@@ -200,7 +209,13 @@ cnoremap w!! w !sudo tee > /dev/null %
 
 if executable('rg')
 	" Use rg over grep
-	set grepprg=rg\ --vimgrep
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
 endif
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+command! -nargs=+ Rg execute 'silent grep! <args>'| redraw! | cwindow 10
+
+" <leader>s for Rg search, space needed
+noremap <leader>s :Rg 
