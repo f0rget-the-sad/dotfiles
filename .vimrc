@@ -112,16 +112,20 @@ Plug 'machakann/vim-highlightedyank'
 " Vim syntax for TOML.
 Plug 'cespare/vim-toml'
 
+" Rust file detection, syntax highlighting, formatting
+Plug 'rust-lang/rust.vim'
+
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
+
 " Initialize plugin system
 call plug#end()
 
 " Pure Vim settings
 set encoding=utf8
 
-" set clipboard CLIPBOARD (^C, ^V in system)
-set clipboard=unnamedplus
 " show line numbers
-
 set relativenumber " show line numbers
 set number " to show current line number instead of 0
 "set wrap " turn on line wrapping
