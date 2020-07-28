@@ -55,6 +55,7 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
+color_prompt=yes
 
 # print the git branch name if in a git project
 parse_git_branch() {
@@ -209,7 +210,10 @@ function rgnosm {
 	rg $@ `git config --file .gitmodules --get-regexp path | awk '{ print $2 }' | xargs -I {} echo -g \'\!{}\'|xargs`
 }
 
-export RTE_SDK=~/workspace/dpdk-stable-18.02.2
-export RTE_TARGET=x86_64-native-linuxapp-gcc
-export PACKETRON=~/workspace/packetron
+function sshua() {
+	VPN_NAME=uaoff
+	(ip a | grep -q ppp0) || (sudo pon $VPN_NAME && echo "VPN [$VPN_NAME] enabled")
+	ssh -o ConnectTimeout=1 -o ConnectionAttempts=5 -t $@ "tmux attach -t vf || tmux new -s vf"
+}
+
 eval $(dircolors -b $HOME/.dircolors)
