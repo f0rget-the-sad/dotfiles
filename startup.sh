@@ -32,12 +32,13 @@ done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
 echo "Updatig source.list"
-sudo add-apt-repository ppa:mmstick76/alacritty
+# sudo add-apt-repository ppa:mmstick76/alacritty
 
 echo "Installing packeges..."
-sudo apt-get update
+# sudo apt-get update
 
-cat packages.txt | xargs sudo apt-get --yes install
+# cat packages.txt | xargs sudo apt-get --yes install
+cat packages.txt | xargs sudo pacman -S --noconfirm
 
 echo "Finish Installing packeges..."
 
@@ -69,7 +70,7 @@ echo "Copy dotfiles"
 DOTFILES=`pwd` 
 
 mv ~/.vimrc ~/.vimrc_bkp
-ln -s $DOTFILES/.vimrc ~/
+ln -s $DOTFILES/vim/.vimrc ~/
 
 mv ~/.bashrc ~/.bashrc_bkp
 ln -s $DOTFILES/.bashrc ~/
@@ -92,10 +93,6 @@ git config --global user.email "$GMAIL"
 git config --global user.name "$NAME"
 ln -sf $DOTFILES/gitignore_global ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
-
-echo "Vundle installing..."
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
 
 echo "FZF installing..."
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf

@@ -190,7 +190,7 @@ set listchars=tab:\¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 hi SpecialKey ctermfg=239
 set showbreak=↪
 
-setlocal spell spelllang=en_us
+set spell spelllang=en_us
 hi clear SpellBad
 hi SpellBad cterm=underline
 
@@ -223,3 +223,13 @@ command! -nargs=+ Rg execute 'silent grep! <args>'| redraw! | cwindow 10
 
 " <leader>s for Rg search, space needed
 noremap <leader>s :Rg 
+
+nnoremap <C-j> <Esc>
+inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
+snoremap <C-j> <Esc>
+xnoremap <C-j> <Esc>
+cnoremap <C-j> <Esc>
+onoremap <C-j> <Esc>
+lnoremap <C-j> <Esc>
+tnoremap <C-j> <Esc>
