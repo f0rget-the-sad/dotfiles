@@ -97,8 +97,6 @@ Plug 'dominikduda/vim_current_word'
 " A collection of syntax definitions not yet shipped with stock vim.
 Plug 'justinmk/vim-syntax-extra'
 
-Plug 'chazy/cscope_maps'
-
 " help you read complex code by showing diff level of parentheses in diff color !!
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -119,6 +117,20 @@ let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
+" === C/C++ ===
+
+Plug 'chazy/cscope_maps'
+
+" Add header guards to C/C++ header files
+Plug 'drmikehenry/vim-headerguard'
+" Change guard Name
+function! g:HeaderguardName()
+	return "_" .toupper(expand('%:t:gs/[^0-9a-zA-Z_]/_/g')) . "_"
+endfunction
+" Auto insert guards at header creation
+autocmd BufNewFile *.{h,hpp} call g:HeaderguardAdd()
+
+" === END ===
 " Initialize plugin system
 call plug#end()
 
@@ -183,6 +195,9 @@ syntax on
 
 " shortcut to indent json files
 nmap <leader>j :%!python -m json.tool<CR>
+
+" F5 to compile and put errors in quickfix window
+nmap <F5> :silent w <BAR> silent make <BAR> unsilent redraw! <BAR> cwindow<CR>
 
 " toggle invisible characters
 set list
