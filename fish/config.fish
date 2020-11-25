@@ -6,7 +6,6 @@ set -U fish_user_paths /home/f0rget/go/bin $fish_user_paths
 
 set -U fish_greeting ""
 
-setenv LIBGL_ALWAYS_SOFTWARE 1
 setenv CARGO_TARGET_DIR ~/.cargo-target
 
 function cd
