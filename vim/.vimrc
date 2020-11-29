@@ -90,6 +90,8 @@ set wildignore+=*.swp
 set wildignore+=*.pyc
 set wildignore+=*.o
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+"Integration with Ctags
+nnoremap <leader>. :CtrlPTag<cr>
 
 " Plug highlighting word under cursor and all of its occurrences."
 Plug 'dominikduda/vim_current_word'
@@ -112,14 +114,15 @@ Plug 'cespare/vim-toml'
 
 " Rust file detection, syntax highlighting, formatting
 Plug 'rust-lang/rust.vim'
-
-let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
 " === C/C++ ===
 
 Plug 'chazy/cscope_maps'
+
+"Open definition of word under cursor in new tab
+nmap <C-\>w :tab cs find g <C-R>=expand("<cword>")<CR><CR>
 
 " Add header guards to C/C++ header files
 Plug 'drmikehenry/vim-headerguard'
@@ -192,12 +195,10 @@ map <leader>p oimport pdb; pdb.set_trace()<ESC>
 " Enable syntax highlighting
 syntax on
 
+filetype plugin indent on
 
 " shortcut to indent json files
 nmap <leader>j :%!python -m json.tool<CR>
-
-" F5 to compile and put errors in quickfix window
-nmap <F5> :silent w <BAR> silent make <BAR> unsilent redraw! <BAR> cwindow<CR>
 
 " toggle invisible characters
 set list
@@ -248,3 +249,12 @@ cnoremap <C-j> <Esc>
 onoremap <C-j> <Esc>
 lnoremap <C-j> <Esc>
 tnoremap <C-j> <Esc>
+
+" build and copen in case of errors
+nmap <F5> :silent w <BAR> silent make <BAR> unsilent redraw! <BAR> cwindow<CR>
+
+" look for ctags under the git folder
+set tags^=.git/tags;~
+
+" enable per project config
+set exrc
