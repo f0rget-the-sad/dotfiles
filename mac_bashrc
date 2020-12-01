@@ -144,6 +144,9 @@ fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+#so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
+stty -ixon
+
 # map cd into cd + ls
 function cd {
     builtin cd "$@" && ls -F
@@ -194,6 +197,12 @@ function man() {
     vim -R -c 'set ft=man nomod nolist' -
 }
 
+function info() {
+  /usr/bin/info $* | \
+    col -b | \
+    vim -R -c 'set ft=man nomod nolist' -
+}
+
 function build_cscope_db_func() {
 	echo "Search for files in dirs: $(pwd) $@"
 	find . $@ -regex ".*\.\(h\|c\|cc\|cpp\)" ! -type l> cscope.files
@@ -217,3 +226,9 @@ function sshua() {
 }
 
 eval $(dircolors -b $HOME/.dircolors)
+
+export CARGO_TARGET_DIR=~/.cargo-target
+WORK_ENV=~/.config/work/env
+if [ -f $WORK_ENV ]; then
+	    source $WORK_ENV
+fi
