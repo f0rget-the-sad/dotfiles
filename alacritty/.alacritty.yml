@@ -1,11 +1,6 @@
-# Window Customization
-window:
-  padding:
-    x: 5
-    y: 5
-  decorations: none
 font:
-    normal:
-        family: Ubuntu Mono
-    size: 20.0
-    # background_opacity: 0.84
+  normal:
+    family: "UbuntuMono Nerd Font Mono"
+
+  size: 16
+background_opacity: 0.86
