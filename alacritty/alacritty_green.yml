@@ -1,0 +1,23 @@
+background_opacity: 1
+
+font:
+  size: 14
+  normal:
+    family: "Roboto Mono"
+    style: Regular
+  bold:
+    family: "Roboto Mono"
+    style: Bold
+
+  italic:
+    family: "Roboto Mono"
+    style: Italic
+
+  bold_italic:
+    family: "Roboto Mono"
+    style: Bold Italic
+
+colors:
+  primary:
+    background: '#033838'
+    foreground: '#a3a398'
