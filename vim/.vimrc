@@ -158,6 +158,8 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set shiftround
+set cc=80
+set tw=80
 
 set laststatus=2
 set autoindent
@@ -212,7 +214,7 @@ hi SpellBad cterm=underline
 
 set linespace=5
 
-set directory^=$HOME/.vim/swap//
+set noswapfile
 
 set cursorline
 hi CursorLine cterm=NONE ctermbg=236
@@ -265,4 +267,13 @@ if system('uname -r') =~ "Microsoft"
         autocmd!
         autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
         augroup END
+endif
+
+" Configs for Windows(Gvim)
+if has("gui_running")
+    set guifont=Roboto\ Mono:h14
+    set guioptions-=m  "hide menu bar
+    set guioptions-=T  "hide toolbar
+    set langmenu=en_US.UTF-8    " sets the language of the menu (gvim)
+    language en                 " sets the language of the messages / ui (vim)
 endif
