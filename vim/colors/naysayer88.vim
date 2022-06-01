@@ -14,6 +14,8 @@ highlight! Default guifg=#d6b48b guibg=#042327 gui=NONE ctermfg=180 ctermbg=None
 highlight! Normal guifg=#d6b48b guibg=#042327 gui=NONE ctermfg=180 ctermbg=None
 
 highlight! Comment guifg=#31B72C guibg=NONE gui=NONE ctermfg=70
+highlight! link SpecialComment Comment
+highlight! link Todo Comment
 
 highlight! link Constant Statement
 highlight! String guifg=#2ca198 guibg=NONE gui=NONE ctermfg=36
@@ -46,9 +48,6 @@ highlight! link Type PreProc
 
 highlight! link Special Default
 highlight! link SpecialChar String
-"highlight! link Tag Special
-"highlight! link Delimiter Special
-highlight SpecialComment guifg=#87875f guibg=NONE gui=reverse ctermfg=101 cterm=reverse
 "highlight! link Debug Special
 
 highlight Underlined guifg=#af5f5f guibg=NONE gui=NONE ctermfg=131
@@ -56,8 +55,6 @@ highlight Underlined guifg=#af5f5f guibg=NONE gui=NONE ctermfg=131
 "highlight Ignore guifg=#af5f5f guibg=NONE gui=NONE
 
 "highlight Error guifg=#af5f5f guibg=NONE gui=NONE
-
-highlight! link Todo Comment
 
 highlight link Title Default
 "highlight htmlStatement guifg=#878787 guibg=NONE gui=NONE
@@ -79,4 +76,8 @@ highlight Search       guifg=#dfdfaf guibg=#878787 gui=NONE ctermfg=187 ctermbg=
 highlight PmenuSel     guifg=#dfdfaf guibg=#875f5f gui=NONE ctermfg=187 ctermbg=95
 highlight MatchParen   guifg=#dfdfaf guibg=#875f5f gui=NONE ctermfg=187 ctermbg=95
 highlight VertSplit    guifg=#000000 guibg=NONE    gui=NONE ctermfg=0   ctermbg=NONE
-highlight! EndOfBuffer guifg=#042327 guibg=#042327 gui=NONE ctermfg=234 ctermbg=234
+"highlight! EndOfBuffer guifg=#042327 guibg=#042327 gui=NONE ctermfg=234 ctermbg=
+"highlight DiffAdd      ctermfg=NONE          ctermbg=Green
+"highlight DiffChange   ctermfg=NONE          ctermbg=NONE
+"highlight DiffDelete   ctermfg=LightBlue     ctermbg=Red
+"highlight DiffText     ctermfg=Yellow        ctermbg=Red
