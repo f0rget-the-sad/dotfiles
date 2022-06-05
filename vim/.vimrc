@@ -50,6 +50,8 @@ nmap <Space> <Plug>(easymotion-bd-w)
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = '<F2>'
 let g:ctrlp_match_window_bottom = 0
+nmap <F3> :CtrlPBuffer<cr>
+
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 "set wildignore+=*/build/*
 set wildignore+=*.so
@@ -90,6 +92,9 @@ Plug 'chazy/cscope_maps'
 
 "Open definition of word under cursor in new tab
 nmap <C-\>w :tab cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>w :tab cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <leader>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 
 " Add header guards to C/C++ header files
 Plug 'drmikehenry/vim-headerguard'
@@ -115,7 +120,7 @@ set number " to show current line number instead of 0
 
 set mouse=a
 
-colorscheme peachpuff
+colorscheme naysayer88
 
 autocmd FileType c,cpp,h set ts=8 sw=8 softtabstop=8
 set ts=4 sw=4
@@ -125,13 +130,14 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set shiftround
-set cc=80
-set tw=80
 
 set laststatus=2
 set autoindent
 set smartindent
 set breakindent
+
+set cc=80
+set noswapfile
 
 " vim tabs navigation
 noremap tn :tabn<CR>
@@ -171,7 +177,7 @@ nmap <leader>j :%!python -m json.tool<CR>
 
 " toggle invisible characters
 set list
-set listchars=tab:\¦\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set listchars=tab:\¦\ ,trail:⋅,extends:❯,precedes:❮
 hi SpecialKey ctermfg=239
 set showbreak=↪
 
@@ -181,13 +187,11 @@ hi SpellBad cterm=underline
 
 set linespace=5
 
-set noswapfile
-
 set cursorline
-hi CursorLine cterm=NONE ctermbg=236
+hi CursorLine cterm=NONE ctermbg=23
 
-hi CurrentWordTwins ctermbg=236
-hi CurrentWord ctermbg=236
+hi CurrentWordTwins ctermbg=23
+hi CurrentWord ctermbg=23
 
 hi TabLine      ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineFill  ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
@@ -207,7 +211,7 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 command! -nargs=+ Rg execute 'silent grep! <args>'| redraw! | cwindow 10
 
 " <leader>s for Rg search, space needed
-noremap <leader>s :Rg 
+noremap <leader>f :Rg 
 
 nnoremap <C-j> <Esc>
 inoremap <C-j> <Esc>
