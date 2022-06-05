@@ -35,34 +35,35 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
+color_prompt=yes
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
+# print the git branch name if in a git project
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+# set the input prompt symbol
+ARROW="->"
+
+# define text formatting
+PROMPT_BOLD="$(tput bold)"
+PROMPT_FG_BLACK="$(tput setaf 0)"
+PROMPT_FG_RED="$(tput setaf 1)"
+PROMPT_FG_GREEN="$(tput setaf 2)"
+PROMPT_FG_YELLOW="$(tput setaf 3)"
+PROMPT_FG_BLUE="$(tput setaf 4)"
+PROMPT_FG_MAGENTA="$(tput setaf 5)"
+PROMPT_FG_PINK="$(tput setaf 213)"
+PROMPT_RESET="$(tput sgr0)"
+
+PROMPT_SECTION_USERNAME="\[$PROMPT_BOLD$PROMPT_FG_GREEN\]\h\[$PROMPT_RESET\]"
+PROMPT_SECTION_DIRECTORY="\[$PROMPT_BOLD$PROMPT_FG_BLUE\]\W\[$PROMPT_RESET\]"
+PROMPT_SECTION_GIT_BRANCH="\[$PROMPT_FG_YELLOW\]\`parse_git_branch\`\[$PROMPT_RESET\]"
+PROMPT_SECTION_ARROW="\[$PROMPT_BOLD$PROMPT_FG_GREEN\]$ARROW\[$PROMPT_RESET\]"
+
 
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}\[\e[01;35m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\e[0;33m\]\$(parse_git_branch)\[\e[0;31m\]$\[\033[00m\] "
+	PS1="$PROMPT_SECTION_DIRECTORY$PROMPT_SECTION_GIT_BRANCH $PROMPT_SECTION_ARROW "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -71,7 +72,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h:\w\a\]$PS1"
     ;;
 *)
     ;;
@@ -123,6 +124,9 @@ fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+#so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
+stty -ixon
+
 # map cd into cd + ls
 function cd {
     builtin cd "$@" && ls -F
@@ -151,9 +155,66 @@ function tvi {
 	command gnome-terminal --geometry 90x60+2250+0 -- vi $@
 }
 
-# map F3 for copyq
-bind '"\eOR":"copyq menu\n"'
+function countdown(){
+   date1=$((`date +%s` + $1));
+   while [ "$date1" -ge `date +%s` ]; do
+     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+     sleep 0.1
+   done
+}
 
-export RTE_SDK=~/git/dpdk-stable-18.02.1
-export RTE_TARGET=x86_64-native-linuxapp-gcc
-export PACKETRON=~/git/packetron
+function stopwatch(){
+  date1=`date +%s`;
+   while true; do
+    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";
+    sleep 0.1
+   done
+}
+
+function man() {
+  /usr/bin/man $* | \
+    col -b | \
+    vim -R -c 'set ft=man nomod nolist' -
+}
+
+function info() {
+  /usr/bin/info $* | \
+    col -b | \
+    vim -R -c 'set ft=man nomod nolist' -
+}
+
+function csbuild() {
+	echo "Search for files in dirs: $(pwd) $@"
+	if [[ $USE_GIT -eq 1 ]]; then
+		find . $@ -regex ".*\.\(h\|c\|cc\|cpp\)" ! -type l -exec sh -c '
+			for f do
+				git check-ignore -q "$f" ||
+				echo $f
+			done
+		' find-sh {} + > cscope.files
+	else
+		echo Excluding $(find . -maxdepth 1 -name "build*")
+		find . $@ -regex ".*\.\(h\|c\|cc\|cpp\)" ! -type l ! -path "./build*"> cscope.files
+	fi
+	echo "Building cscope db..."
+	cscope -Rbkq
+}
+
+function pretty_csv {
+    column -t -s, -n "$@" | less -F -S -X -K
+}
+
+# Grep ignoring submodules
+function rgnosm {
+	rg $@ `git config --file .gitmodules --get-regexp path | awk '{ print $2 }' | xargs -I {} echo -g \'\!{}\'|xargs`
+}
+
+# join to tmux session on server `$1`
+function j {
+	local sess_name="vf"
+	local server=$1
+
+	ssh $server -t "tmux a -t $sess_name || tmux new -s $sess_name"
+}
+
+export CARGO_TARGET_DIR=~/.cargo-target
