@@ -26,16 +26,10 @@ let NERDTreeIgnore = ['\.pyc$']
 " Git plugin
 Plug 'tpope/vim-fugitive'
 
-" Simply use the provided mapping <C-W>m to toggle zoom in and out for the current window
-Plug 'dhruvasagar/vim-zoom'
-
 " Tagbar is a Vim plugin that provides an easy way to browse the tags of the
 "current file and get an overview of its structure.
 Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
-
-" Adds filetype glyphs (icons) to various vim plugins.
-Plug 'ryanoasis/vim-devicons'
 
 "Lightweight Vim plugin to enhance the tabline including numbered tab page
 "labels; it's written entirely in Vim script.
@@ -66,6 +60,8 @@ nnoremap <leader>. :CtrlPTag<cr>
 Plug 'dominikduda/vim_current_word'
 
 " A collection of syntax definitions not yet shipped with stock vim.
+" Improved C syntax groups for operators, delimiters, user-defined functions,
+" function calls, and a wealth of standard ANSI C function names.
 Plug 'justinmk/vim-syntax-extra'
 
 " help you read complex code by showing diff level of parentheses in diff color !!
@@ -75,6 +71,7 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 nmap <leader>m <Plug>MarkdownPreviewToggle
 
+" Make the yanked region apparent!
 Plug 'machakann/vim-highlightedyank'
 
 " === Rust ===
@@ -137,6 +134,7 @@ set smartindent
 set breakindent
 
 set cc=80
+set textwidth=80
 set noswapfile
 
 " vim tabs navigation
@@ -212,16 +210,6 @@ command! -nargs=+ Rg execute 'silent grep! <args>'| redraw! | cwindow 10
 
 " <leader>s for Rg search, space needed
 noremap <leader>f :Rg 
-
-nnoremap <C-j> <Esc>
-inoremap <C-j> <Esc>
-vnoremap <C-j> <Esc>
-snoremap <C-j> <Esc>
-xnoremap <C-j> <Esc>
-cnoremap <C-j> <Esc>
-onoremap <C-j> <Esc>
-lnoremap <C-j> <Esc>
-tnoremap <C-j> <Esc>
 
 " build and copen in case of errors
 nmap <F5> :silent w <BAR> silent make <BAR> unsilent redraw! <BAR> cwindow<CR>
