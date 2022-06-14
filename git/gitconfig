@@ -1,0 +1,13 @@
+[user]
+	email = volodymyr.fialko@gmail.com
+	name = Volodymyr Fialko
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore_global
+[sendemail]
+	from = Volodymyr Fialko <vfialko@marvell.com>
+	smtpserverport = 25
+	smtpserver = maili.marvell.com
+	transferEncoding = 8bit
+	chainreplyto = false
+	confirm = auto

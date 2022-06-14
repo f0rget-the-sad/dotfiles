@@ -2,7 +2,7 @@
 
 set -e
 
-echo "Linking dotfiles..."
+echo "Copy dotfiles..."
 DOTFILES=`pwd` 
 
 declare -A links
