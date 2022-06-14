@@ -217,4 +217,9 @@ function j {
 	ssh $server -t "tmux a -t $sess_name || tmux new -s $sess_name"
 }
 
+# create new ssh key without asking questions
+function newkey {
+	ssh-keygen -t rsa -N "" -f ~/.ssh/id_ed25519
+}
+
 export CARGO_TARGET_DIR=~/.cargo-target
