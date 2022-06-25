@@ -220,6 +220,9 @@ set tags^=.git/tags;~
 " enable per project config
 set exrc
 
+" Show the current match position
+set shortmess-=S
+
 " enable clipboard to work inside wsl
 if system('uname -r') =~ "Microsoft"
     augroup Yank
