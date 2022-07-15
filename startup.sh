@@ -16,8 +16,9 @@ links[".tmux.conf"]="tmux/.tmux.conf"
 links[".gitconfig"]="git/gitconfig"
 links[".gitignore_global"]="git/gitignore_global"
 
+mkdir -p ~/.vim/colors
 for key in "${!links[@]}"; do
 	echo "ln -sf "$DOTFILES/${links[$key]}" ~/$key"
-	rm -f ~/$key
+	rm -rf ~/$key
 	ln -sf "$DOTFILES/${links[$key]}" ~/$key
 done
