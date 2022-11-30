@@ -192,13 +192,19 @@ cnoremap w!! w !sudo tee > /dev/null %
 
 if executable('rg')
 	" Use rg over grep
-	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepprg=rg\ --no-heading\ --smart-case\ --vimgrep
 	set grepformat=%f:%l:%c:%m
 endif
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 command! -nargs=+ Rg execute 'silent grep! <args>'| redraw! | cwindow 10
+" Position the (global) quickfix window at the very bottom of the window
+" (useful for making sure that it appears underneath splits)
+"
+" NOTE: Using a check here to make sure that window-specific location-lists
+" aren't effected, as they use the same `FileType` as quickfix-lists.
+autocmd FileType qf if (getwininfo(win_getid())[0].loclist != 1) | wincmd J | endif
 
 " <leader>s for Rg search, space needed
 noremap <leader>f :Rg 
