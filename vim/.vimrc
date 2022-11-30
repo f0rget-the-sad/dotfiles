@@ -40,21 +40,13 @@ Plug 'easymotion/vim-easymotion'
 " Easy motion mapping
 nmap <Space> <Plug>(easymotion-bd-w)
 
-" Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
-Plug 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_map = '<F2>'
-let g:ctrlp_match_window_bottom = 0
-nmap <F3> :CtrlPBuffer<cr>
-
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-"set wildignore+=*/build/*
-set wildignore+=*.so
-set wildignore+=*.swp
-set wildignore+=*.pyc
-set wildignore+=*.o
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-"Integration with Ctags
-nnoremap <leader>. :CtrlPTag<cr>
+" FZF
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" - down / up / left / right
+let g:fzf_layout = { 'up': '35%' }
+nmap <F2> :GFiles<cr>
+nmap <F3> :Buffers<cr>
 
 " Plug highlighting word under cursor and all of its occurrences."
 Plug 'dominikduda/vim_current_word'
