@@ -1,6 +1,26 @@
-font:
-  normal:
-    family: "UbuntuMono Nerd Font Mono"
+window:
+  opacity: 1
+  startup_mode: maximized
 
-  size: 16
-background_opacity: 0.86
+font:
+  size: 12.5
+  normal:
+    family: "Roboto Mono"
+    style: Regular
+  bold:
+    family: "Roboto Mono"
+    style: Bold
+  italic:
+    family: "Roboto Mono"
+    style: Italic
+  bold_italic:
+    family: "Roboto Mono"
+    style: Bold Italic
+
+colors:
+  primary:
+    background: '#033838'
+    foreground: '#a3a398'
+
+env:
+  WINIT_X11_SCALE_FACTOR: "1"
