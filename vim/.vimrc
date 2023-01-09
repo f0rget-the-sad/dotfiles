@@ -126,6 +126,7 @@ set smartindent
 set breakindent
 
 set cc=80
+au FileType gitcommit set cc=75
 set textwidth=80
 set noswapfile
 
