@@ -94,6 +94,13 @@ endfunction
 " Auto insert guards at header creation
 autocmd BufNewFile *.{h,hpp} call g:HeaderguardAdd()
 
+" it's kinda ok for small commands, but big one
+" will lag main editor window
+Plug 'skywind3000/asyncrun.vim'
+let g:asyncrun_open = 10
+" Usage
+"nmap <F4> :AsyncRun <command>
+
 " === END ===
 " Initialize plugin system
 call plug#end()
