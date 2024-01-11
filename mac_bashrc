@@ -219,16 +219,6 @@ function rgnosm {
 	rg $@ `git config --file .gitmodules --get-regexp path | awk '{ print $2 }' | xargs -I {} echo -g \'\!{}\'|xargs`
 }
 
-function sshua() {
-	VPN_NAME=uaoff
-	(ip a | grep -q ppp0) || (sudo pon $VPN_NAME && echo "VPN [$VPN_NAME] enabled")
-	ssh -o ConnectTimeout=1 -o ConnectionAttempts=5 -t $@ "tmux attach -t vf || tmux new -s vf"
+function rj {
+    jai first.jai && time ./first
 }
-
-eval $(dircolors -b $HOME/.dircolors)
-
-export CARGO_TARGET_DIR=~/.cargo-target
-WORK_ENV=~/.config/work/env
-if [ -f $WORK_ENV ]; then
-	    source $WORK_ENV
-fi

@@ -75,6 +75,9 @@ Plug 'rust-lang/rust.vim'
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
+" === Jai ===
+Plug 'jansedivy/jai.vim'
+
 " === C/C++ ===
 
 Plug 'chazy/cscope_maps'
@@ -121,7 +124,7 @@ colorscheme naysayer88
 autocmd FileType c,cpp,h set ts=8 sw=8 softtabstop=8
 set ts=4 sw=4
 set smarttab
-set noexpandtab
+set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -221,7 +224,7 @@ autocmd FileType qf if (getwininfo(win_getid())[0].loclist != 1) | wincmd J | en
 noremap <leader>f :Rg 
 
 " build and copen in case of errors
-nmap <F5> :silent w <BAR> silent make <BAR> unsilent redraw! <BAR> cwindow<CR>
+"nmap <F5> :silent w <BAR> silent make <BAR> unsilent redraw! <BAR> cwindow<CR>
 
 " look for ctags under the git folder
 set tags^=.git/tags;~
