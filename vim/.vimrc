@@ -6,25 +6,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" The NERDTree is a file system explorer for the Vim editor
-Plug 'scrooloose/nerdtree'
-
-" Toggle NERDTree
-function! ToggleNerdTree()
-	if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
-		:NERDTreeFind
-	else
-		:NERDTreeToggle
-	endif
-endfunction
-" toggle nerd tree
-nmap <silent> <leader>k :call ToggleNerdTree()<cr>
-" find the current file in nerdtree without needing to reload the drawer
-nmap <silent> <leader>y :NERDTreeFind<cr>
-let NERDTreeIgnore = ['\.pyc$']
-
 " Git plugin
 Plug 'tpope/vim-fugitive'
+nmap <F1> :vert G<CR>
+
+" better directory browser
+Plug 'tpope/vim-vinegar'
 
 " Tagbar is a Vim plugin that provides an easy way to browse the tags of the
 "current file and get an overview of its structure.
@@ -32,7 +19,7 @@ Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 
 "Lightweight Vim plugin to enhance the tabline including numbered tab page
-"labels; it's written entirely in Vim script.
+"labels
 Plug 'webdevel/tabulous'
 
 "Vim motion on speed!
@@ -60,11 +47,11 @@ Plug 'justinmk/vim-syntax-extra'
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-nmap <leader>m <Plug>MarkdownPreviewToggle
-
 " Make the yanked region apparent!
 Plug 'machakann/vim-highlightedyank'
+
+" Plugin to swap delimited items.
+Plug 'machakann/vim-swap'
 
 " === Rust ===
 " Vim syntax for TOML.
@@ -74,9 +61,6 @@ Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
-
-" === Jai ===
-Plug 'jansedivy/jai.vim'
 
 " === C/C++ ===
 
@@ -97,13 +81,6 @@ endfunction
 " Auto insert guards at header creation
 autocmd BufNewFile *.{h,hpp} call g:HeaderguardAdd()
 
-" it's kinda ok for small commands, but big one
-" will lag main editor window
-Plug 'skywind3000/asyncrun.vim'
-let g:asyncrun_open = 10
-" Usage
-"nmap <F4> :AsyncRun <command>
-
 " === END ===
 " Initialize plugin system
 call plug#end()
@@ -121,10 +98,9 @@ set mouse=a
 
 colorscheme naysayer88
 
-autocmd FileType c,cpp,h set ts=8 sw=8 softtabstop=8
 set ts=4 sw=4
 set smarttab
-set expandtab
+set noexpandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -134,10 +110,11 @@ set laststatus=2
 set autoindent
 set smartindent
 set breakindent
+autocmd FileType meson setlocal ts=4 sw=4 softtabstop=4 expandtab
+autocmd FileType c,cpp,h setlocal ts=8 sw=8 softtabstop=8
 
 set cc=80
 au FileType gitcommit set cc=75
-set textwidth=80
 set noswapfile
 
 " vim tabs navigation
@@ -183,16 +160,17 @@ hi SpecialKey ctermfg=239
 set showbreak=↪
 
 set spell spelllang=en_us
+map  :w!<CR>:!aspell check %<CR>:e! %<CR>
 hi clear SpellBad
 hi clear SpellCap
 hi clear SpellRare
 hi clear SpellLocal
 hi SpellBad cterm=underline
 
-set linespace=5
-
 set cursorline
 hi CursorLine cterm=NONE ctermbg=23
+
+set linespace=5
 
 hi CurrentWordTwins ctermbg=23
 hi CurrentWord ctermbg=23
@@ -200,6 +178,9 @@ hi CurrentWord ctermbg=23
 hi TabLine      ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineFill  ctermfg=Black  ctermbg=Grey     cterm=NONE guifg=#000000 guibg=#dadada
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE guifg=#ffffff guibg=#337dff
+
+hi diffRemoved ctermfg=red
+hi diffAdded   ctermfg=green
 
 " Force saving files that require root permission
 cnoremap w!! w !sudo tee > /dev/null %
@@ -220,11 +201,21 @@ command! -nargs=+ Rg execute 'silent grep! <args>'| redraw! | cwindow 10
 " aren't effected, as they use the same `FileType` as quickfix-lists.
 autocmd FileType qf if (getwininfo(win_getid())[0].loclist != 1) | wincmd J | endif
 
+" load the quickfix item into the previously used window
+set switchbuf+=uselast
+
+" Prev/next
+nmap [q :cp<CR>
+nmap ]q :cn<CR>
+
 " <leader>s for Rg search, space needed
 noremap <leader>f :Rg 
 
+" sort as reverse tree
+noremap <leader>x :! awk '{ print length(), $0 \| "sort -nr \| cut -d\\  -f2-" }'<CR>
+
 " build and copen in case of errors
-"nmap <F5> :silent w <BAR> silent make <BAR> unsilent redraw! <BAR> cwindow<CR>
+nmap <F5> :silent w <BAR> silent make <BAR> unsilent redraw! <BAR> cwindow<CR>
 
 " look for ctags under the git folder
 set tags^=.git/tags;~
