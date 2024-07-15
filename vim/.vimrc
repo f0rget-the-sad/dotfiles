@@ -169,6 +169,7 @@ hi SpellBad cterm=underline
 
 set cursorline
 hi CursorLine cterm=NONE ctermbg=23
+hi ColorColumn ctermbg=23
 
 set linespace=5
 
@@ -200,6 +201,8 @@ command! -nargs=+ Rg execute 'silent grep! <args>'| redraw! | cwindow 10
 " NOTE: Using a check here to make sure that window-specific location-lists
 " aren't effected, as they use the same `FileType` as quickfix-lists.
 autocmd FileType qf if (getwininfo(win_getid())[0].loclist != 1) | wincmd J | endif
+
+command TODO execute 'e ~/tmp/TODO.txt'
 
 " load the quickfix item into the previously used window
 set switchbuf+=uselast
@@ -233,6 +236,18 @@ if system('uname -r') =~ "Microsoft"
         autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
         augroup END
 endif
+
+" Generate fixes msg in following format:
+" Fixes: <commit-hash> ("<commit-message>")
+function GenFixes(commithash)
+	" let commit_str = string(a:commithash)
+	let hash = trim(system("git rev-parse --short=12 " . a:commithash))
+	let msg = trim(system("git show -s --format=%s " . a:commithash))
+	let res =  "Fixes: " . hash . " (\"" . msg . "\")"
+	put =res
+endfunction
+
+command! -nargs=+ Fx execute 'call GenFixes(<f-args>)'
 
 " Configs for Windows(Gvim)
 if has("gui_running")
