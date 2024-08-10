@@ -1,0 +1,15 @@
+;; Caps to escape/control configuration for Kanata
+;; ecape -> tilde(`~)
+(defsrc
+  caps
+  esc
+)
+
+(defalias
+  escctrl (tap-hold 100 100 esc lctl)
+)
+
+(deflayer base
+  @escctrl
+  grv
+)
